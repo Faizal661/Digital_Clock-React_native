@@ -3,8 +3,8 @@
     "name": "Digi Clock",
     "slug": "DigitalClockApp",
     "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.jpg",
+    "orientation": "default",
+    "icon": "./assets/digital-clock.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {

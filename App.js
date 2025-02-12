@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Linking } from "react-native";
 import * as Font from "expo-font";
 import * as ScreenOrientation from "expo-screen-orientation";
 
@@ -7,7 +7,8 @@ const DigitalClock = () => {
   const [time, setTime] = useState(new Date());
   const [fontLoaded, setFontLoaded] = useState(false);
   const [orientation, setOrientation] = useState("portrait");
-  const [hour,setHour]= useState();
+  const [hour, setHour] = useState();
+  const [ampm, setAmpm] = useState();
 
   useEffect(() => {
     async function loadFont() {
@@ -23,7 +24,8 @@ const DigitalClock = () => {
     const interval = setInterval(() => {
       setTime(new Date());
     }, 1000);
-    setHour(time.getHours()%12)
+    setHour(time.getHours() % 12)
+    setAmpm(time.getHours() / 12 ===1 ? 'aM' : 'pM')
 
     return () => clearInterval(interval);
   }, []);
@@ -67,29 +69,36 @@ const DigitalClock = () => {
     return <Text style={styles.loadingText}>Loading Font...</Text>;
   }
 
+  const openWebsite = () => {
+    Linking.openURL("https://www.github.com/Faizal661");
+  };
+  
   return (
     <View
-      style={[
-        styles.container,
-        orientation === "landscape" ? styles.landscapeContainer : {},
-      ]}
+    style={[
+      styles.container,
+      orientation === "landscape" ? styles.landscapeContainer : {},
+    ]}
     >
       <View>
         <Text
           style={[
             styles.clockText,
-            orientation === "landscape" ? styles.landscapeText : {},
+            orientation === "landscape" ? styles.landscapeText : styles.protraitText,styles.portraitContainer
           ]}
         >
           {hour.toString().padStart(2, "0")}:
           {time.getMinutes().toString().padStart(2, "0")}:
           {time.getSeconds().toString().padStart(2, "0")}
+          <Text style={styles.ampm}>{ampm}</Text>
         </Text>
       </View>
-      {/* <Text style={styles.loadingText}
-
-      >developed by mohammed Faizal T
-      </Text> */}
+      <TouchableOpacity onPress={openWebsite}>
+        <View style={styles.container2}>
+          <Text style={styles.loadingText}>Developed By </Text>
+          <Text style={styles.linkText}>Faizal661</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -102,12 +111,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#000",
   },
-  landscapeContainer: {
-    flexDirection: "row", // Make it wider
+  container2: {
+    flexDirection: "row",   
+    marginBottom:60 ,
+  },
+  portraitContainer:{
+    marginLeft:60,
+    paddingBottom:50
+  },
+  protraitText:{
+    fontSize:160,
+    width:200,
+    lineHeight: 160,
+
   },
   clockText: {
     fontSize: 110,
-    color: "#fff",
+    color: "#e1e1e1",
     fontFamily: "DigitalDismay",
     lineHeight: 120,
     paddingBottom: 20,
@@ -117,10 +137,20 @@ const styles = StyleSheet.create({
     fontSize: 230,
 
   },
-  loadingText: {
-    fontSize: 20,
-    color: "#fff",
+  linkText: {
+    fontSize: 16,
+    color: "#767676",
+    fontWeight:"bold",
+    textDecorationLine: "underline", 
   },
+  loadingText: {
+    fontSize:16,
+    color: "#b2b2b2",
+  },
+  ampm:{
+    fontSize:30,
+    color: "#b2b2b2",
+  }
 });
 
 export default function App() {

@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "DigitalClockApp",
+    "name": "Digi Clock",
     "slug": "DigitalClockApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon.jpg",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -19,10 +19,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.faizalt.DigitalClockApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3e6c1a89-3585-419a-a593-a01305265321"
+      }
     }
   }
 }

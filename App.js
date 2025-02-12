@@ -1,20 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import * as Font from "expo-font";
 
 const DigitalClock = () => {
   const [time, setTime] = useState(new Date());
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadFont() {
+      await Font.loadAsync({
+        "DigitalDismay": require("./assets/fonts/DigitalDismay.otf"),
+      });
+      setFontLoaded(true);
+    }
+    loadFont();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(new Date());
     }, 1000);
-
     return () => clearInterval(interval);
   }, []);
 
+  if (!fontLoaded) {
+    return <Text style={styles.loadingText}>Loading Font...</Text>;
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Mohammed Faizal T</Text>
       <Text style={styles.clockText}>
         {time.getHours().toString().padStart(2, "0")}:
         {time.getMinutes().toString().padStart(2, "0")}:
@@ -29,21 +43,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#121212",
-  },
-   heading: {
-    fontSize: 40,
-    fontWeight: "medium",
-    fontStyle:"italic",
-    color: "#ffff",
+    backgroundColor: "#000",
   },
   clockText: {
-    fontSize: 80,
-    fontWeight: "bold",
-    color: "#00ffcc",
+    fontSize: 100,
+    color: "#fff",
+    fontFamily: "DigitalDismay", 
+    lineHeight: 100,
   },
+  loadingText: {
+    fontSize: 20,
+    color: "#fff",
+  }, 
 });
 
-export default function App() {
+export default function App() { 
   return <DigitalClock />;
 }

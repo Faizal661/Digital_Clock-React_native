@@ -8,7 +8,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build android": "eas build --profile production --platform android"
+    "build": "eas build --profile production --platform android"
   },
   "dependencies": {
     "expo": "~52.0.32",
@@ -17,7 +17,10 @@
     "expo-status-bar": "~2.0.1",
     "react": "18.3.1",
     "react-native": "0.76.7",
-    "react-native-device-info": "^14.0.4"
+    "react-native-device-info": "^14.0.4",
+    "react-dom": "18.3.1",
+    "react-native-web": "~0.19.13",
+    "@expo/metro-runtime": "~4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

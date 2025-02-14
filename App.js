@@ -7,8 +7,8 @@ const DigitalClock = () => {
   const [time, setTime] = useState(new Date());
   const [fontLoaded, setFontLoaded] = useState(false);
   const [orientation, setOrientation] = useState("portrait");
-  const [hour, setHour] = useState();
-  const [ampm, setAmpm] = useState();
+  const [hour, setHour] = useState(time.getHours() % 12 || 12);
+  const [ampm, setAmpm] = useState(time.getHours() < 12 ? "aM" : "pM");
 
   useEffect(() => {
     async function loadFont() {
@@ -23,14 +23,14 @@ const DigitalClock = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(new Date());
+      setHour(time.getHours() % 12 || 12)
+      setAmpm(time.getHours() < 12 ? 'aM' : 'pM')
     }, 1000);
-    setHour(time.getHours() % 12)
-    setAmpm(time.getHours() / 12 ===1 ? 'aM' : 'pM')
 
     return () => clearInterval(interval);
   }, []);
 
-  // Detect orientation changes
+  // Detect orientation changes    
   useEffect(() => {
     async function getOrientation() {
       const orientationInfo = await ScreenOrientation.getOrientationAsync();
@@ -72,19 +72,19 @@ const DigitalClock = () => {
   const openWebsite = () => {
     Linking.openURL("https://www.github.com/Faizal661");
   };
-  
+
   return (
     <View
-    style={[
-      styles.container,
-      orientation === "landscape" ? styles.landscapeContainer : {},
-    ]}
+      style={[
+        styles.container,
+        orientation === "landscape" ? styles.landscapeContainer : {},
+      ]}
     >
       <View>
         <Text
           style={[
             styles.clockText,
-            orientation === "landscape" ? styles.landscapeText : styles.protraitText,styles.portraitContainer
+            orientation === "landscape" ? styles.landscapeText : styles.protraitText, styles.portraitContainer
           ]}
         >
           {hour.toString().padStart(2, "0")}:
@@ -100,7 +100,7 @@ const DigitalClock = () => {
         </View>
       </TouchableOpacity>
     </View>
-  );
+  ); 
 };
 
 
@@ -112,16 +112,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
   },
   container2: {
-    flexDirection: "row",   
-    marginBottom:60 ,
+    flexDirection: "row",
+    marginBottom: 60,
   },
-  portraitContainer:{
-    marginLeft:60,
-    paddingBottom:50
+  portraitContainer: {
+    marginLeft: 60,
+    paddingBottom: 50
   },
-  protraitText:{
-    fontSize:160,
-    width:200,
+  protraitText: {
+    fontSize: 160,
+    width: 200,
     lineHeight: 160,
 
   },
@@ -140,15 +140,15 @@ const styles = StyleSheet.create({
   linkText: {
     fontSize: 16,
     color: "#767676",
-    fontWeight:"bold",
-    textDecorationLine: "underline", 
+    fontWeight: "bold",
+    textDecorationLine: "underline",
   },
   loadingText: {
-    fontSize:16,
+    fontSize: 16,
     color: "#b2b2b2",
   },
-  ampm:{
-    fontSize:30,
+  ampm: {
+    fontSize: 30,
     color: "#b2b2b2",
   }
 });

@@ -13,7 +13,6 @@
     },
     "production": {
       "android": {
-        "enableHermes": true
       }
     }
   },

@@ -21,7 +21,12 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.faizalt.DigitalClockApp"
-    }, 
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#000000",
+      "barStyle": "light-content",
+      "hidden": true
+    },    
     "web": {
       "favicon": "./assets/digital-clock.png"
     },
